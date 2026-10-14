@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>My little mei mei</title>
+<style>
+:root{--g1:#ffe3f1;--g2:#e6e0ff;--g3:#d9f1ff;--dot:rgba(255,255,255,.7);--ink:#1b2238;--sub:#6b7390;--card:#ffffff;--out1:#ffe066;--out2:#ffab40;--accent:#ff4f8b;
+--p0:#ffd1e3;--p1:#dcd2ff;--p2:#c9f2e1;--p3:#ffe2b8;--p4:#c8e6ff;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--g1:#2a1245;--g2:#1a1b4d;--g3:#0e2a4d;--dot:rgba(255,255,255,.07);--card:#2a2f55;--sub:#a9b0d0}}
+:root[data-theme="dark"]{--g1:#2a1245;--g2:#1a1b4d;--g3:#0e2a4d;--dot:rgba(255,255,255,.07);--card:#2a2f55;--sub:#a9b0d0}
+html{scroll-padding-top:env(safe-area-inset-top,0px);height:100%}
+*{box-sizing:border-box}
+body{margin:0;height:100%;color:var(--ink);font-family:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+background:radial-gradient(var(--dot) 1.6px,transparent 1.7px) 0 0/24px 24px,linear-gradient(160deg,var(--g1),var(--g2) 50%,var(--g3));background-attachment:fixed}
+canvas{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:30}
+.fl{position:fixed;z-index:0;pointer-events:none;animation:fl 9s ease-in-out infinite alternate}
+@keyframes fl{from{transform:translateY(0) rotate(-12deg)}to{transform:translateY(-26px) rotate(14deg)}}
+.app{position:relative;z-index:1;height:100%;max-width:520px;margin:0 auto;display:flex;flex-direction:column}
+header{position:sticky;top:env(safe-area-inset-top,0px);display:flex;align-items:center;gap:12px;padding:12px 16px;color:#fff;background:linear-gradient(90deg,#ff4f8b,#9b5cff 55%,#3ea0ff);box-shadow:0 4px 14px rgba(120,60,200,.35)}
+.av{position:relative;width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,#ffe066,#ff7a59);display:grid;place-items:center;font-weight:800;font-size:1.3rem;color:#fff;border:2px solid #fff}
+.av::after{content:"";position:absolute;right:-1px;bottom:-1px;width:12px;height:12px;border-radius:50%;background:#3ddc84;border:2px solid #fff}
+.nm{font-weight:750;line-height:1.1;font-size:1.08rem}
+#st{font-size:.8rem;opacity:.9}
+#chat{flex:1;overflow-y:auto;padding:18px 14px 14px;display:flex;flex-direction:column;gap:8px}
+.row{display:flex;animation:pop .3s ease both}
+.row.me{justify-content:flex-end}
+.b{position:relative;max-width:84%;padding:9px 13px 6px;border-radius:18px;border-top-left-radius:4px;line-height:1.4;font-size:1.02rem;color:var(--ink);background:var(--p0);box-shadow:0 2px 0 rgba(0,0,0,.08)}
+.c0 .b{background:var(--p0)}.c1 .b{background:var(--p1)}.c2 .b{background:var(--p2)}.c3 .b{background:var(--p3)}.c4 .b{background:var(--p4)}
+.row:not(.me) .b{cursor:pointer;-webkit-tap-highlight-color:transparent}
+.me .b{background:linear-gradient(135deg,var(--out1),var(--out2));border-radius:18px;border-top-right-radius:4px}
+.liked .b{margin-bottom:12px}
+.liked .b::after{content:"♥";position:absolute;right:10px;bottom:-12px;background:#fff;color:var(--accent);border-radius:999px;font-size:.9rem;padding:1px 7px;box-shadow:0 1px 3px rgba(0,0,0,.3);animation:pop .25s ease both}
+.t{display:block;text-align:right;font-size:.68rem;color:rgba(27,34,56,.55);margin-top:2px}
+.sys{align-self:center;font-size:.8rem;font-weight:600;padding:5px 14px;border-radius:999px;background:var(--card);color:var(--sub);animation:pop .3s ease both;text-align:center}
+.dots{display:flex;gap:4px;padding:6px 3px}
+.dots i{width:7px;height:7px;border-radius:50%;background:var(--accent);animation:bl 1s infinite}
+.dots i:nth-child(2){animation-delay:.15s;background:#9b5cff}.dots i:nth-child(3){animation-delay:.3s;background:#3ea0ff}
+@keyframes bl{0%,60%,100%{opacity:.35;transform:none}30%{opacity:1;transform:translateY(-3px)}}
+@keyframes pop{from{opacity:0;transform:translateY(8px) scale(.96)}to{opacity:1;transform:none}}
+@keyframes sh{0%,100%{transform:none}25%{transform:translateX(-4px) rotate(-1deg)}75%{transform:translateX(4px) rotate(1deg)}}
+.w{align-self:center;width:min(100%,340px);background:var(--card);border-radius:20px;padding:14px 16px 16px;box-shadow:0 6px 0 rgba(155,92,255,.25);animation:pop .4s ease both;text-align:center}
+.w h3{margin:0 0 10px;font-size:1rem}
+.track{height:16px;border-radius:999px;background:rgba(155,92,255,.18);overflow:hidden}
+.fill{height:100%;width:0;border-radius:999px;background:linear-gradient(90deg,#3ddc84,#ffe066,#ff4f8b);transition:width 1.8s cubic-bezier(.2,.8,.2,1)}
+.res{min-height:1.5em;margin:10px 0 8px;font-weight:700;color:var(--ink)}
+.go{font:inherit;font-weight:700;border:0;border-radius:999px;padding:9px 22px;color:#fff;cursor:pointer;background:linear-gradient(90deg,#ff4f8b,#9b5cff);box-shadow:0 3px 0 rgba(0,0,0,.18)}
+.go:active{transform:translateY(2px);box-shadow:none}
+.go:focus-visible,.chip:focus-visible,.snd:focus-visible,#in:focus-visible,.num:focus-visible{outline:3px solid var(--out1);outline-offset:2px}
+.spin{font-size:1.25rem;font-weight:800;min-height:2.6em;display:grid;place-items:center;border-radius:14px;background:linear-gradient(135deg,var(--p1),var(--p4));margin-bottom:10px;padding:6px 10px;color:var(--ink)}
+.card{align-self:center;text-align:center;margin:16px 0 6px;padding:20px 28px 18px;border-radius:24px;color:#fff;background:linear-gradient(135deg,#ff4f8b,#9b5cff 60%,#3ea0ff);box-shadow:0 8px 0 rgba(80,40,160,.35);animation:pop .6s ease both;max-width:340px}
+.card h2{margin:0;font-size:1.3rem}
+.num{display:block;margin:0 auto;font:inherit;font-weight:900;font-size:5.2rem;line-height:1.1;color:#ffe066;background:none;border:0;cursor:pointer;text-shadow:0 4px 0 rgba(0,0,0,.2)}
+.num:active{transform:scale(.88) rotate(-5deg)}
+.card small{display:block;opacity:.9;font-size:.82rem;margin:2px 0 10px}
+.gift{background:#fff;color:#7a3cff;box-shadow:0 3px 0 rgba(0,0,0,.2)}
+.gres{margin:10px 0 0;font-weight:700;font-size:.95rem}
+footer{padding:8px 12px calc(12px + env(safe-area-inset-bottom,0px));display:flex;flex-direction:column;align-items:center;gap:10px;min-height:20px}
+.chips{display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
+.chip{font:inherit;font-weight:600;border:0;background:var(--card);color:var(--ink);padding:10px 18px;border-radius:999px;cursor:pointer;box-shadow:0 3px 0 rgba(155,92,255,.35);animation:pop .4s ease both}
+.chip:hover{background:var(--accent);color:#fff}
+.send{display:flex;gap:8px;width:100%;animation:pop .4s ease both}
+#in{flex:1;min-width:0;font:inherit;padding:11px 16px;border-radius:999px;border:2px solid rgba(155,92,255,.4);background:var(--card);color:var(--ink)}
+.snd{font:inherit;font-weight:700;border:0;border-radius:999px;background:linear-gradient(90deg,#ff4f8b,#9b5cff);color:#fff;padding:0 20px;cursor:pointer}
+@media (prefers-reduced-motion:reduce){.row,.card,.chip,.send,.w,.sys,.dots i,.fl,.liked .b::after{animation:none}.fill{transition:none}}
+</style>
+</head>
+<body>
+<canvas id="c" aria-hidden="true"></canvas>
+<div class="app">
+  <header><div class="av">M</div><div><div class="nm">My little mei mei</div><div id="st">en línea</div></div></header>
+  <div id="chat" aria-live="polite"></div>
+  <footer id="foot"></footer>
+</div>
+<script>
+(function(){
+var MSG=[
+{sys:'Hoy es un día importante'},
+'Hola heydydydy',
+'Me alegro mucho de que, a pesar de todos los problemas que hemos tenido, hemos sabido afrontar cualquier situación.',
+'Es curioso, porque al final de cuentas nunca imaginé tener una amistad tan larga como la nuestra.',
+{sys:'Mensaje sentimental papu :v'},
+'Tú sabes que aprecio todo: los momentos que hemos compartido, la confianza que nos tenemos. Aunque últimamente nos hemos ido por caminos diferentes, seguimos acá.',
+'A pesar de que usted a veces tiende a ser insoportable, agradezco mucho primero a mí, por ser tan paciente, y luego a vos porque a pesar de todo seguimos acá.',
+{w:'meter'},
+{sys:'Tema delicado: Deje de ser tan cansona'},
+'Sé que dices que los 19 no se cumplen todos los años y que este será tu último año con un 1 al inicio. Pues no quiero que te carcomas tanto con esa idea, ya que por obvias razones no siempre vamos a cumplir la misma edad.',
+'Te deseo que en esta etapa puedas experimentar cosas nuevas, conocer más personas y avanzar tanto como persona, amiga, hermana e hija.',
+{w:'wheel'},
+'Te quiero, bro.',
+'¡Que el éxito no sea más rápido que tú!'
+];
+var WISH=['avanzar como persona xdd'];
+var RM=matchMedia('(prefers-reduced-motion:reduce)').matches;
+var chat=document.getElementById('chat'),st=document.getElementById('st'),foot=document.getElementById('foot'),
+    cv=document.getElementById('c'),x=cv.getContext('2d'),W,H,conf=[],run=false,rep=0,k=0;
+
+/* formas flotantes de fondo */
+['★','♥','✦','●','★','♥','✦','●'].forEach(function(g,i){var s=document.createElement('span');s.className='fl';s.textContent=g;
+ s.style.cssText='left:'+(6+i*12)+'%;top:'+(10+((i*37)%75))+'%;font-size:'+(22+(i%3)*14)+'px;color:'+['#ff4f8b','#9b5cff','#3ea0ff','#ffb703'][i%4]+';opacity:.35;animation-delay:-'+i*1.3+'s';document.body.appendChild(s)});
+
+function size(){var d=devicePixelRatio||1;W=innerWidth;H=innerHeight;cv.width=W*d;cv.height=H*d;x.setTransform(d,0,0,d,0,0)}
+size();addEventListener('resize',size);
+function burst(n){var cs=['#ffe066','#ff4f8b','#3ea0ff','#9b5cff','#3ddc84'];
+ for(var i=0;i<n;i++)conf.push({x:Math.random()*W,y:-10-Math.random()*H*.5,vx:(Math.random()-.5)*3,vy:2+Math.random()*4,s:6+Math.random()*8,r:0,vr:(Math.random()-.5)*.3,c:cs[i%5]});
+ if(!run){run=true;requestAnimationFrame(tick)}}
+function tick(){x.clearRect(0,0,W,H);conf=conf.filter(function(c){return c.y<H+20});
+ conf.forEach(function(c){c.x+=c.vx;c.y+=c.vy;c.r+=c.vr;x.save();x.translate(c.x,c.y);x.rotate(c.r);x.fillStyle=c.c;x.fillRect(-c.s/2,-c.s/4,c.s,c.s/2);x.restore()});
+ conf.length?requestAnimationFrame(tick):(run=false)}
+
+function hora(){return new Date().toLocaleTimeString('es-CO',{hour:'2-digit',minute:'2-digit'})}
+function down(){chat.scrollTo({top:chat.scrollHeight,behavior:RM?'auto':'smooth'})}
+function bubble(txt,me){var r=document.createElement('div');r.className='row'+(me?' me':' c'+(k++%5));
+ var b=document.createElement('div');b.className='b';b.textContent=txt;
+ var t=document.createElement('span');t.className='t';t.textContent=hora();b.appendChild(t);r.appendChild(b);
+ if(!me)b.onclick=function(){r.classList.toggle('liked')};
+ chat.appendChild(r);down()}
+function typing(){var r=document.createElement('div');r.className='row';r.innerHTML='<div class="b"><div class="dots"><i></i><i></i><i></i></div></div>';chat.appendChild(r);st.textContent='escribiendo…';down();return r}
+function say(txt,cb){var d=typing(),w=RM?0:Math.min(2800,800+txt.length*24);
+ setTimeout(function(){d.remove();st.textContent='en línea';bubble(txt,false);setTimeout(cb,RM?0:550)},w)}
+function add(el){chat.appendChild(el);down()}
+function mk(tag,cls,html){var e=document.createElement(tag);if(cls)e.className=cls;if(html)e.innerHTML=html;return e}
+
+function meter(){var w=mk('div','w','<h3>Medidor de insoportable</h3><div class="track"><div class="fill"></div></div><div class="res">Listo para medir</div><button class="go">Medir a Heydydy</button>');
+ var f=w.querySelector('.fill'),r=w.querySelector('.res'),b=w.querySelector('.go'),n=0;
+ b.onclick=function(){n++;if(n>1){r.textContent='El aparato se rompió. Resultado: no cabe en la escala.';w.style.animation='sh .4s';setTimeout(function(){w.style.animation=''},450);burst(40);return}
+  r.textContent='Midiendo...';f.style.width='100%';setTimeout(function(){r.textContent='Resultado: 100% insoportable. Con cariño.';burst(60)},RM?0:1800)};
+ add(w)}
+
+function wheel(){var w=mk('div','w','<h3>Ruleta de deseos</h3><div class="spin">Toca para girar</div><button class="go">Girar</button>');
+ var s=w.querySelector('.spin'),b=w.querySelector('.go');
+ b.onclick=function(){b.disabled=true;var i=0,end=Math.floor(Math.random()*WISH.length),t=setInterval(function(){s.textContent=WISH[i++%WISH.length]},90);
+  setTimeout(function(){clearInterval(t);s.textContent='Te toca: '+WISH[end];b.disabled=false;b.textContent='Girar otra vez';burst(70)},RM?0:1700)};
+ add(w)}
+
+function play(i){
+ if(i>=MSG.length)return finish();
+ var m=MSG[i];
+ if(typeof m==='string')return say(m,function(){play(i+1)});
+ if(m.sys){add(mk('div','sys',m.sys));return setTimeout(function(){play(i+1)},RM?0:900)}
+ (m.w==='meter'?meter:wheel)();setTimeout(function(){play(i+1)},RM?0:1000)}
+
+function finish(){
+ var c=mk('div','card','<h2>Feliz cumpleaños, Heydydy</h2><button class="num" aria-label="Lanzar confeti">19</button><small>Toca el 19. Toca mis mensajes. Abre el regalo.</small><button class="go gift">Abrir regalo</button><div class="gres"></div>');
+ c.querySelector('.num').onclick=function(){burst(110)};
+ c.querySelector('.gift').onclick=function(){this.style.display='none';c.querySelector('.gres').textContent='Tu regalo: esta página y mi paciencia (edición limitada).';burst(200)};
+ add(c);burst(180);
+ setTimeout(function(){
+  foot.innerHTML='';
+  var box=mk('div','chips');
+  [['Gracias, bro','Para eso estamos. Que lo disfrutes mucho.'],['Insoportable ni qué nada','Jajaja ya, ya. Feliz cumpleaños.']].forEach(function(o){
+   var b=mk('button','chip');b.textContent=o[0];
+   b.onclick=function(){box.remove();bubble(o[0],true);burst(120);setTimeout(function(){say(o[1],function(){})},RM?0:700)};box.appendChild(b)});
+  foot.appendChild(box);
+  var s=mk('div','send','<input id="in" type="text" placeholder="Escríbeme algo" aria-label="Tu mensaje"><button class="snd">Enviar</button>');
+  var R=['Leído. Te respondo en persona.','Anotado. Lo hablamos en persona.','Shhhhhhh, bye'];
+  function go(){var inp=s.querySelector('input'),v=inp.value.trim();if(!v)return;inp.value='';bubble(v,true);
+   setTimeout(function(){say(R[rep++%R.length],function(){})},RM?0:500)}
+  s.querySelector('.snd').onclick=go;
+  s.querySelector('input').addEventListener('keydown',function(e){if(e.key==='Enter')go()});
+  foot.appendChild(s)
+ },RM?0:1200)}
+
+setTimeout(function(){play(0)},RM?0:700);
+})();
+</script>
+</body>
+</html>
